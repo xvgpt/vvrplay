@@ -581,7 +581,7 @@ header {
     color: var(--primary);
 }
 
-/* Плеер */
+/* Плеер (общие стили) */
 .player {
     position: fixed;
     bottom: 0;
@@ -671,6 +671,11 @@ header {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+/* Индикатор "Сейчас играет" (скрыт на ПК) */
+.mobile-now-playing {
+    display: none;
 }
 
 .lyrics-btn {
@@ -826,6 +831,11 @@ header {
 
 .player-placeholder {
     height: 180px;
+}
+
+/* Drag handle (полоска для свайпа) – скрыта на ПК */
+.player-drag-handle {
+    display: none;
 }
 
 /* Модальные окна */
@@ -1059,302 +1069,260 @@ header {
     }
 }
 
-/* ========== АДАПТАЦИЯ ПОД МОБИЛЬНЫЕ УСТРОЙСТВА (В СТИЛЕ SPOTIFY) ========== */
-@media (max-width: 1200px) {
+/* ========== МОБИЛЬНАЯ АДАПТАЦИЯ (до 768px) ========== */
+@media (max-width: 768px) {
+    /* Основные ajustments */
     .container {
         padding: 30px;
     }
-    
+
+    .album-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
     .album-header {
         flex-direction: column;
         text-align: center;
         gap: 40px;
     }
-    
+
     .album-cover-container {
         width: 300px;
         height: 300px;
     }
-    
+
     .album-info {
         width: 100%;
     }
-    
-    .player-controls {
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-    
-    .player-track-info,
-    .player-right-controls {
-        min-width: 100%;
-        justify-content: center;
-    }
-    
-    .player-center-controls {
-        order: -1;
-        width: 100%;
-        justify-content: center;
-    }
-}
 
-@media (max-width: 768px) {
-    .logo-text {
-        font-size: 3.5rem;
-    }
-    
-    .album-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    
-    .album-cover-large {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-    }
-    
     .album-title-glow {
         font-size: 2.8rem;
     }
-    
-    .player {
-        padding: 20px;
-    }
-    
-    .player-controls {
-        gap: 15px;
-    }
-    
-    .lyrics-modal,
-    .zoom-modal {
-        padding: 20px;
+
+    .album-stats {
+        display: none; /* скрываем статистику на мобильных */
     }
 
-    /* === Мобильные улучшения (как в Spotify) === */
-    /* Увеличиваем карточки альбомов на главной */
-    .album-card {
-        padding: 20px;
-    }
-    .album-cover {
-        margin-bottom: 15px;
-    }
-    .album-title {
-        font-size: 1.8rem; /* чуть крупнее для мобильных */
-    }
-    .album-artist {
-        font-size: 1.2rem;
-    }
-    .album-year {
-        font-size: 1rem;
-        padding: 6px 16px;
+    .album-badge {
+        display: none; /* скрываем бейдж */
     }
 
-    /* Плеер: делаем его выше, кнопки крупнее */
-    .player {
-        padding: 15px 20px;
+    /* Drag handle – показываем */
+    .player-drag-handle {
+        display: flex;
+        justify-content: center;
+        padding: 5px 0;
+        cursor: pointer;
+        color: var(--light);
+        opacity: 0.5;
+        transition: opacity 0.2s;
     }
+    .player-drag-handle:hover {
+        opacity: 1;
+    }
+
+    /* Плеер: компактный вид по умолчанию (свёрнут) */
+    .player {
+        padding: 10px 20px;
+    }
+
     .player-progress-bar {
-        height: 6px; /* толще прогресс-бар */
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+        height: 6px; /* толще для удобства */
     }
-    .player-track-info {
-        gap: 15px;
-    }
-    .current-cover {
-        width: 70px;
-        height: 70px; /* увеличенная обложка */
-    }
-    .current-title {
-        font-size: 1.3rem;
-    }
-    .current-artist {
-        font-size: 1.1rem;
-    }
-    /* Убираем кнопку "Текст" на мобильных, чтобы не загромождать */
-    .lyrics-btn {
+
+    /* Скрываем лишние блоки в свёрнутом состоянии */
+    .player:not(.expanded) .player-right-controls,
+    .player:not(.expanded) .lyrics-btn,
+    .player:not(.expanded) .player-center-controls .control-btn:not(.play-btn) {
         display: none;
     }
-    .player-center-controls {
-        gap: 15px;
+
+    /* Перестраиваем player-controls для свёрнутого вида */
+    .player:not(.expanded) .player-controls {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
     }
-    .control-btn {
+
+    .player:not(.expanded) .player-track-info {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0; /* позволяет тексту сжиматься */
+    }
+
+    .player:not(.expanded) .current-cover {
+        width: 50px;
+        height: 50px;
+    }
+
+    .player:not(.expanded) .track-info-text {
+        flex: 1;
+        min-width: 0;
+    }
+
+    .player:not(.expanded) .current-title {
+        font-size: 1rem;
+        margin-bottom: 2px;
+    }
+
+    .player:not(.expanded) .current-artist {
+        font-size: 0.9rem;
+    }
+
+    .player:not(.expanded) .mobile-now-playing {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.8rem;
+        color: var(--light);
+        opacity: 0.7;
+    }
+
+    .player:not(.expanded) .player-center-controls {
+        display: flex;
+        justify-content: flex-end;
+        min-width: auto;
+    }
+
+    .player:not(.expanded) .play-btn {
         width: 55px;
         height: 55px;
         font-size: 1.5rem;
     }
-    .play-btn {
-        width: 80px;
-        height: 80px;
-        font-size: 2.2rem;
-    }
-    /* Скрываем статистику альбома (кол-во треков, время) на мобильных */
-    .album-stats {
-        display: none;
-    }
-    /* Скрываем альбом-бэдж для экономии места */
-    .album-badge {
-        display: none;
-    }
-    /* Уменьшаем отступы в треклисте */
-    .track-item {
+
+    /* Развёрнутое состояние на мобильных */
+    .player.expanded {
         padding: 15px 20px;
     }
-    .track-number {
-        width: 40px;
-        font-size: 1.1rem;
+
+    .player.expanded .player-drag-handle i {
+        transform: rotate(180deg);
     }
-    .track-title {
-        font-size: 1.1rem;
+
+    .player.expanded .player-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
     }
-    .track-artist {
-        font-size: 0.95rem;
+
+    .player.expanded .player-track-info {
+        width: 100%;
+        justify-content: space-between;
     }
-    .track-duration {
-        font-size: 1rem;
-        min-width: 60px;
+
+    .player.expanded .mobile-now-playing {
+        display: none; /* скрываем индикатор в развёрнутом виде */
+    }
+
+    .player.expanded .player-center-controls {
+        justify-content: center;
+    }
+
+    .player.expanded .player-right-controls {
+        justify-content: center;
+        min-width: auto;
+    }
+
+    .player.expanded .volume-container {
+        width: 100px;
+    }
+
+    .player.expanded .time-display {
+        min-width: auto;
     }
 }
 
+/* Для очень маленьких экранов (до 480px) */
 @media (max-width: 480px) {
     .container {
         padding: 20px;
     }
+
     .logo-text {
         font-size: 2.8rem;
     }
-    .logo-subtitle {
-        font-size: 0.8rem;
-        letter-spacing: 2px;
-    }
-    .album-grid {
-        gap: 20px;
-    }
+
     .album-card {
         padding: 15px;
     }
+
     .album-title {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
-    .album-artist {
-        font-size: 1.1rem;
-    }
-    .back-btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
+
     .album-cover-container {
         width: 250px;
         height: 250px;
     }
+
     .album-play-btn {
         width: 50px;
         height: 50px;
         bottom: -15px;
         right: -15px;
     }
-    .album-play-btn i {
-        font-size: 1.3rem;
-    }
+
     .album-title-glow {
         font-size: 2.2rem;
     }
-    .album-artist {
-        font-size: 1.2rem;
-    }
-    .album-meta {
-        gap: 15px;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .meta-item {
-        font-size: 0.95rem;
-    }
-    .album-description {
-        font-size: 1rem;
-    }
-    .section-title {
-        font-size: 1.5rem;
-    }
+
     .track-item {
         padding: 12px 15px;
     }
+
     .track-number {
         width: 30px;
         font-size: 1rem;
     }
+
     .track-title {
         font-size: 1rem;
     }
-    .track-artist {
-        font-size: 0.9rem;
-    }
+
     .track-duration {
         font-size: 0.95rem;
         min-width: 50px;
     }
-    /* Плеер для совсем маленьких экранов */
-    .player {
-        padding: 12px 15px;
-    }
-    .player-progress-bar {
-        height: 5px;
-        margin-bottom: 15px;
-    }
-    .current-cover {
-        width: 60px;
-        height: 60px;
-    }
-    .current-title {
-        font-size: 1.1rem;
-    }
-    .current-artist {
-        font-size: 1rem;
-    }
-    .player-center-controls {
-        gap: 10px;
-    }
-    .control-btn {
+
+    /* Плеер */
+    .player:not(.expanded) .current-cover {
         width: 45px;
         height: 45px;
+    }
+
+    .player:not(.expanded) .play-btn {
+        width: 50px;
+        height: 50px;
         font-size: 1.3rem;
     }
-    .play-btn {
+
+    .player.expanded .play-btn {
+        width: 65px;
+        height: 65px;
+        font-size: 1.8rem;
+    }
+
+    .player.expanded .control-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
+    .player.expanded .volume-container {
         width: 70px;
-        height: 70px;
-        font-size: 2rem;
     }
-    .player-right-controls {
-        gap: 10px;
-    }
-    .volume-container {
-        width: 80px;
-    }
-    .time-display {
+
+    .player.expanded .time-display {
         font-size: 0.85rem;
-        min-width: 80px;
     }
+
     .player-placeholder {
         height: 200px;
-    }
-    /* Модальные окна */
-    .lyrics-modal-content {
-        max-width: 95%;
-    }
-    .lyrics-header {
-        padding: 20px;
-    }
-    .lyrics-title {
-        font-size: 1.4rem;
-    }
-    .lyrics-body {
-        padding: 20px;
-    }
-    .lyrics-text {
-        font-size: 1rem;
-    }
-    .zoom-cover {
-        max-width: 95vw;
     }
 }
 

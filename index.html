@@ -81,8 +81,13 @@
             <div class="player-placeholder"></div>
         </div>
 
-        <!-- Плеер -->
+        <!-- Плеер (обновлён для мобильного сворачивания) -->
         <div class="player" id="player">
+            <!-- Полоска для свайпа/нажатия (видна только на мобильных) -->
+            <div class="player-drag-handle">
+                <i class="fas fa-chevron-up"></i>
+            </div>
+
             <div class="player-progress-bar" onclick="seek(event)">
                 <div class="player-progress" id="progress"></div>
                 <div class="player-progress-glow"></div>
@@ -94,6 +99,10 @@
                     <div class="track-info-text">
                         <div id="current-title" class="current-title">Выберите трек</div>
                         <div id="current-artist" class="current-artist">VVRPLAY</div>
+                        <!-- Индикатор "Сейчас играет" для мобильного свёрнутого режима -->
+                        <div class="mobile-now-playing">
+                            <i class="fas fa-headphones"></i> Сейчас играет
+                        </div>
                     </div>
                     <button class="lyrics-btn" onclick="showLyrics()">
                         <i class="fas fa-align-left"></i>

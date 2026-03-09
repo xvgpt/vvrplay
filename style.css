@@ -1132,6 +1132,160 @@ header {
     }
 }
 
+/* Дополнительная адаптация для очень маленьких экранов (до 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 20px;
+    }
+    .logo-text {
+        font-size: 2.8rem;
+    }
+    .logo-subtitle {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+    }
+    .album-grid {
+        gap: 20px;
+    }
+    .album-card {
+        padding: 15px;
+    }
+    .album-title {
+        font-size: 1.4rem;
+    }
+    .album-artist {
+        font-size: 1rem;
+    }
+    .back-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+    .album-cover-container {
+        width: 250px;
+        height: 250px;
+    }
+    .album-play-btn {
+        width: 50px;
+        height: 50px;
+        bottom: -15px;
+        right: -15px;
+    }
+    .album-play-btn i {
+        font-size: 1.3rem;
+    }
+    .album-title-glow {
+        font-size: 2.2rem;
+    }
+    .album-artist {
+        font-size: 1.2rem;
+    }
+    .album-meta {
+        gap: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .meta-item {
+        font-size: 0.95rem;
+    }
+    .album-description {
+        font-size: 1rem;
+    }
+    .album-stats {
+        gap: 25px;
+    }
+    .stat-value {
+        font-size: 2rem;
+    }
+    .section-title {
+        font-size: 1.5rem;
+    }
+    .track-item {
+        padding: 15px;
+    }
+    .track-number {
+        width: 35px;
+        font-size: 1rem;
+    }
+    .track-title {
+        font-size: 1rem;
+    }
+    .track-artist {
+        font-size: 0.9rem;
+    }
+    .track-duration {
+        font-size: 0.95rem;
+        min-width: 60px;
+    }
+    /* Player */
+    .player {
+        padding: 15px;
+    }
+    .player-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .player-track-info {
+        min-width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .track-info-text {
+        min-width: 150px;
+    }
+    .lyrics-btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+    .player-center-controls {
+        gap: 15px;
+    }
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+    .play-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 1.5rem;
+    }
+    .player-right-controls {
+        min-width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    .volume-container {
+        width: 100px;
+    }
+    .time-display {
+        min-width: auto;
+        font-size: 0.9rem;
+    }
+    .player-placeholder {
+        height: 220px;
+    }
+    /* Modal */
+    .lyrics-modal-content {
+        max-width: 95%;
+    }
+    .lyrics-header {
+        padding: 20px;
+    }
+    .lyrics-title {
+        font-size: 1.4rem;
+    }
+    .lyrics-body {
+        padding: 20px;
+    }
+    .lyrics-text {
+        font-size: 1rem;
+    }
+    .zoom-cover {
+        max-width: 95vw;
+    }
+}
+
 /* Кастомный скроллбар */
 ::-webkit-scrollbar {
     width: 10px;
